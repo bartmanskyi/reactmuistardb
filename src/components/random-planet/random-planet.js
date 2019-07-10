@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
 		}
 	},
 	heroContent: {
-		padding: theme.spacing(8, 0, 6)
+		paddingTop: theme.spacing(4),
+		paddingBottom: theme.spacing(4)
 	},
 	card: {
 		display: 'flex'
@@ -40,7 +41,7 @@ export default function Pricing() {
 	return (
 		<div>
 			<CssBaseline />
-			<Container maxWidth="md" component="main" className={classes.heroContent}>
+			<Container component="main" className={classes.heroContent}>
 				<Card className={classes.card}>
 					<CardMedia
 						className={classes.cardMedia}

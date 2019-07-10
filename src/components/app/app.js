@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
+
+import Grid from '@material-ui/core/Grid';
+import withRoot from './withRoot';
+import Container from '@material-ui/core/Container';
+
 import Header from '../header';
 import RandomPlanet from '../random-planet';
-// import SearchPanel from '../search-panel';
-// import TodoList from '../todo-list';
-// import ItemAddForm from '../item-add-form';
-// import AppFooter from '../app-footer';
-// import Container from '@material-ui/core/Container';
-// import { withStyles } from '@material-ui/core/styles';
-import withRoot from './withRoot';
+import ItemList from '../item-list';
+import PersonDetails from '../person-details';
 
 class App extends Component {
 	render() {
@@ -15,6 +15,16 @@ class App extends Component {
 			<div>
 				<Header />
 				<RandomPlanet />
+				<Container component="main">
+					<Grid container spacing={3}>
+						<Grid item md={6} sm={12}>
+							<ItemList />
+						</Grid>
+						<Grid item md={6} sm={12}>
+							<PersonDetails />
+						</Grid>
+					</Grid>
+				</Container>
 			</div>
 		);
 	}
