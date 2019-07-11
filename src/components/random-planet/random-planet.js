@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import SwapiService from '../../services/swapi-service';
+import CircularProgress from '@material-ui/core/CircularProgress';
 const styles = (theme) => ({
 	'@global': {
 		body: {
@@ -42,7 +43,8 @@ const styles = (theme) => ({
 class RandomPlanet extends Component {
 	swapiService = new SwapiService();
 	state = {
-		planet: {}
+		planet: {},
+		loading: true
 	};
 
 	constructor() {
@@ -51,7 +53,7 @@ class RandomPlanet extends Component {
 	}
 
 	onPlanetLoaded = (planet) => {
-		this.setState({ planet });
+		this.setState({ planet, loading: false });
 	};
 
 	updatePlanet() {
@@ -61,14 +63,22 @@ class RandomPlanet extends Component {
 
 	render() {
 		const { classes } = this.props;
-		const { planet: { id, name, population, rotationPeriod, diameter } } = this.state;
+		const { planet: { id, name, population, rotationPeriod, diameter }, loading } = this.state;
 		const image = `https://starwars-visualguide.com/assets/img/planets/${id}.jpg`;
+		const imageBlock = loading ? (
+			<div>
+				<div className={classes.cardMedia} />
+				<CircularProgress size={40} style={{ display: 'contents' }} />
+			</div>
+		) : (
+			<CardMedia className={classes.cardMedia} image={image} title={name} />
+		);
 		return (
 			<div>
 				<CssBaseline />
 				<Container component="main" className={classes.heroContent}>
 					<Card className={classes.card}>
-						<CardMedia className={classes.cardMedia} image={image} title={name} />
+						{imageBlock}
 						<div className={classes.cardDetails}>
 							<CardContent>
 								<Typography component="h2" variant="h5">
