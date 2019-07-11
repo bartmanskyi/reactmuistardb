@@ -12,6 +12,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import SwapiService from '../../services/swapi-service';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import ErrorIndicator from '../error-indicator';
 const styles = (theme) => ({
 	'@global': {
 		body: {
@@ -44,7 +45,8 @@ class RandomPlanet extends Component {
 	swapiService = new SwapiService();
 	state = {
 		planet: {},
-		loading: true
+		loading: true,
+		error: false
 	};
 
 	constructor() {
@@ -52,18 +54,22 @@ class RandomPlanet extends Component {
 		this.updatePlanet();
 	}
 
+	onError = (err) => {
+		this.setState({ error: true, loading: false });
+	};
+
 	onPlanetLoaded = (planet) => {
 		this.setState({ planet, loading: false });
 	};
 
 	updatePlanet() {
 		const id = Math.floor(Math.random() * 18) + 2;
-		this.swapiService.getPlanet(id).then(this.onPlanetLoaded);
+		this.swapiService.getPlanet(id).then(this.onPlanetLoaded).catch(this.onError);
 	}
 
 	render() {
 		const { classes } = this.props;
-		const { planet: { id, name, population, rotationPeriod, diameter }, loading } = this.state;
+		const { planet: { id, name, population, rotationPeriod, diameter }, loading, error } = this.state;
 		const image = `https://starwars-visualguide.com/assets/img/planets/${id}.jpg`;
 		const imageBlock = loading ? (
 			<div>
@@ -73,12 +79,13 @@ class RandomPlanet extends Component {
 		) : (
 			<CardMedia className={classes.cardMedia} image={image} title={name} />
 		);
+		const imageBlockWithErrorMessage = error ? <ErrorIndicator /> : imageBlock;
 		return (
 			<div>
 				<CssBaseline />
 				<Container component="main" className={classes.heroContent}>
 					<Card className={classes.card}>
-						{imageBlock}
+						{imageBlockWithErrorMessage}
 						<div className={classes.cardDetails}>
 							<CardContent>
 								<Typography component="h2" variant="h5">
