@@ -9,12 +9,18 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
 const styles = (theme) => ({
 	card: {
 		maxWidth: '100%'
 	},
 	media: {
 		height: 380
+	},
+	heroContent: {
+		paddingTop: theme.spacing(4),
+		paddingLeft: 0,
+		paddingRight: 0
 	}
 });
 
@@ -44,45 +50,50 @@ class PersonDetails extends Component {
 
 	render() {
 		const { classes } = this.props;
-
 		if (!this.state.person) {
-			return <Card className={classes.card}>Please select person from the list</Card>;
+			return (
+				<Container component="main" className={classes.heroContent}>
+					<Card className={classes.card}>Please select person from the list</Card>
+				</Container>
+			);
 		}
 		const { id, name, gender, birthYear, eyeColor } = this.state.person;
 		const image = `https://starwars-visualguide.com/assets/img/characters/${id}.jpg`;
 		return (
-			<Card className={classes.card}>
-				<CardMedia className={classes.media} image={image} title={name} />
-				<CardContent>
-					<Typography component="h2" variant="h5">
-						{name}
-					</Typography>
-					<Grid container direction="row" spacing={1}>
-						<Grid item xs={12} sm={4}>
-							<List direction="row">
-								<ListItem>
-									<ListItemText primary="Gender:" secondary={gender} />
-								</ListItem>
-							</List>
-						</Grid>
+			<Container component="main" className={classes.heroContent}>
+				<Card className={classes.card}>
+					<CardMedia className={classes.media} image={image} title={name} />
+					<CardContent>
+						<Typography component="h2" variant="h5">
+							{name}
+						</Typography>
+						<Grid container direction="row" spacing={1}>
+							<Grid item xs={12} sm={4}>
+								<List direction="row">
+									<ListItem>
+										<ListItemText primary="Gender:" secondary={gender} />
+									</ListItem>
+								</List>
+							</Grid>
 
-						<Grid item xs={12} sm={4} align="right">
-							<List direction="row">
-								<ListItem>
-									<ListItemText primary="birthYear:" secondary={birthYear} />
-								</ListItem>
-							</List>
+							<Grid item xs={12} sm={4} align="right">
+								<List direction="row">
+									<ListItem>
+										<ListItemText primary="birthYear:" secondary={birthYear} />
+									</ListItem>
+								</List>
+							</Grid>
+							<Grid item xs={12} sm={4} align="right">
+								<List direction="row">
+									<ListItem>
+										<ListItemText primary="eyeColor:" secondary={eyeColor} />
+									</ListItem>
+								</List>
+							</Grid>
 						</Grid>
-						<Grid item xs={12} sm={4} align="right">
-							<List direction="row">
-								<ListItem>
-									<ListItemText primary="eyeColor:" secondary={eyeColor} />
-								</ListItem>
-							</List>
-						</Grid>
-					</Grid>
-				</CardContent>
-			</Card>
+					</CardContent>
+				</Card>
+			</Container>
 		);
 	}
 }

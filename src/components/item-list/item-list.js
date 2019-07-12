@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-// import ListSubheader from '@material-ui/core/ListSubheader';
-// import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Card from '@material-ui/core/Card';
@@ -12,6 +11,11 @@ import SwapiService from '../../services/swapi-service';
 const styles = (theme) => ({
 	card: {
 		maxWidth: '100%'
+	},
+	heroContent: {
+		paddingTop: theme.spacing(4),
+		paddingLeft: 0,
+		paddingRight: 0
 	}
 });
 
@@ -44,11 +48,13 @@ class ItemList extends Component {
 		}
 		const items = this.renderItems(peopleList);
 		return (
-			<Card className={classes.card}>
-				<CardContent>
-					<List>{items}</List>
-				</CardContent>
-			</Card>
+			<Container component="main" className={classes.heroContent}>
+				<Card className={classes.card}>
+					<CardContent>
+						<List>{items}</List>
+					</CardContent>
+				</Card>
+			</Container>
 		);
 	}
 }

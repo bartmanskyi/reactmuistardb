@@ -14,21 +14,8 @@ import SwapiService from '../../services/swapi-service';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorIndicator from '../error-indicator';
 const styles = (theme) => ({
-	'@global': {
-		body: {
-			backgroundColor: theme.palette.common.white
-		},
-		ul: {
-			margin: 0,
-			padding: 0
-		},
-		li: {
-			listStyle: 'none'
-		}
-	},
 	heroContent: {
-		paddingTop: theme.spacing(4),
-		paddingBottom: theme.spacing(4)
+		paddingTop: theme.spacing(4)
 	},
 	card: {
 		display: 'flex'
@@ -50,7 +37,7 @@ class RandomPlanet extends Component {
 	};
 	componentDidMount() {
 		this.updatePlanet();
-		this.interval = setInterval(this.updatePlanet, 5000);
+		this.interval = setInterval(this.updatePlanet, 7000);
 	}
 	componentWillUnmount() {
 		clearInterval(this.interval);
