@@ -9,6 +9,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Divider from '@material-ui/core/Divider';
+import Hidden from '@material-ui/core/Hidden';
 const styles = (theme) => ({
 	appBar: {
 		borderBottom: `1px solid ${theme.palette.divider}`
@@ -37,10 +38,11 @@ class Header extends Component {
 				<CssBaseline />
 				<AppBar position="static" color="default" elevation={0} className={classes.appBar}>
 					<Toolbar className={classes.toolbar}>
-						<Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-							Star DB
-						</Typography>
-
+						<Hidden xsDown>
+							<Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
+								Star DB
+							</Typography>
+						</Hidden>
 						<nav>
 							<Link variant="button" color="textPrimary" href="#" className={classes.link}>
 								People
@@ -54,17 +56,31 @@ class Header extends Component {
 						</nav>
 						<Divider className={classes.divider} />
 						<FormGroup row>
-							<FormControlLabel
-								control={
-									<Switch
-										checked={showRandomPlanet}
-										color="primary"
-										onChange={() => this.props.onToggleRandomPlanet()}
-									/>
-								}
-								label="Random Planet"
-								labelPlacement="start"
-							/>
+							<Hidden xsDown>
+								<FormControlLabel
+									control={
+										<Switch
+											checked={showRandomPlanet}
+											color="primary"
+											onChange={() => this.props.onToggleRandomPlanet()}
+										/>
+									}
+									label="Random Planet"
+									labelPlacement="start"
+								/>
+							</Hidden>
+							<Hidden smUp>
+								<FormControlLabel
+									control={
+										<Switch
+											checked={showRandomPlanet}
+											color="primary"
+											onChange={() => this.props.onToggleRandomPlanet()}
+										/>
+									}
+									style={{ marginLeft: 5 }}
+								/>
+							</Hidden>
 						</FormGroup>
 					</Toolbar>
 				</AppBar>
