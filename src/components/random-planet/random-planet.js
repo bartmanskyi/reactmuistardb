@@ -48,25 +48,23 @@ class RandomPlanet extends Component {
 		loading: true,
 		error: false
 	};
-
-	constructor() {
-		super();
+	componentDidMount() {
 		this.updatePlanet();
+		this.interval = setInterval(this.updatePlanet, 5000);
 	}
-
+	componentWillUnmount() {
+		clearInterval(this.interval);
+	}
 	onError = (err) => {
 		this.setState({ error: true, loading: false });
 	};
-
 	onPlanetLoaded = (planet) => {
 		this.setState({ planet, loading: false });
 	};
-
-	updatePlanet() {
+	updatePlanet = () => {
 		const id = Math.floor(Math.random() * 18) + 2;
 		this.swapiService.getPlanet(id).then(this.onPlanetLoaded).catch(this.onError);
-	}
-
+	};
 	render() {
 		const { classes } = this.props;
 		const { planet: { id, name, population, rotationPeriod, diameter }, loading, error } = this.state;
@@ -74,7 +72,7 @@ class RandomPlanet extends Component {
 		const imageBlock = loading ? (
 			<div>
 				<div className={classes.cardMedia} />
-				<CircularProgress size={40} style={{ display: 'contents' }} />
+				<CircularProgress />
 			</div>
 		) : (
 			<CardMedia className={classes.cardMedia} image={image} title={name} />
@@ -89,7 +87,7 @@ class RandomPlanet extends Component {
 						<div className={classes.cardDetails}>
 							<CardContent>
 								<Typography component="h2" variant="h5">
-									Star: {name}
+									Planet - {name}
 								</Typography>
 								<Grid container direction="row" spacing={1}>
 									<Grid item xs={12} sm={4}>

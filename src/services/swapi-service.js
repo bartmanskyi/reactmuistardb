@@ -13,7 +13,7 @@ class SwapiService {
 		return res.results.map(this._transformPerson);
 	}
 	async getPerson(id) {
-		const person = await this.getPerson(`/people/${id}/`);
+		const person = await this.getResource(`/people/${id}/`);
 		return this._transformPerson(person);
 	}
 	async getAllPlanets() {
@@ -29,14 +29,14 @@ class SwapiService {
 		return res.results.map(this._transformSpaceShip);
 	}
 	async getStarship(id) {
-		const spaceship = await this.getStarship(`/starships/${id}/`);
+		const spaceship = await this.getResource(`/starships/${id}/`);
 		return this._transformSpaceShip(spaceship);
 	}
 	_extractId(item) {
 		const idRegExp = /\/([0-9]*)\/$/;
 		return item.url.match(idRegExp)[1];
 	}
-	_transformPlanet(planet) {
+	_transformPlanet = (planet) => {
 		return {
 			id: this._extractId(planet),
 			name: planet.name,
@@ -44,17 +44,17 @@ class SwapiService {
 			rotationPeriod: planet.rotation_period,
 			diameter: planet.diameter
 		};
-	}
-	_transformPerson(person) {
+	};
+	_transformPerson = (person) => {
 		return {
 			id: this._extractId(person),
 			name: person.name,
 			gender: person.gender,
-			birthYear: person.birthYear,
-			eyeColor: person.eyeColor
+			birthYear: person.birth_year,
+			eyeColor: person.eye_color
 		};
-	}
-	_transformSpaceShip(spaceship) {
+	};
+	_transformSpaceShip = (spaceship) => {
 		return {
 			id: this._extractId(spaceship),
 			name: spaceship.name,
@@ -66,6 +66,6 @@ class SwapiService {
 			passengers: spaceship.passengers,
 			cargoCapacity: spaceship.cargoCapacity
 		};
-	}
+	};
 }
 export default SwapiService;

@@ -1,51 +1,90 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
-const useStyles = makeStyles({
+import SwapiService from '../../services/swapi-service';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Grid from '@material-ui/core/Grid';
+const styles = (theme) => ({
 	card: {
 		maxWidth: '100%'
 	},
 	media: {
-		height: 140
+		height: 380
 	}
 });
 
-export default function MediaCard() {
-	const classes = useStyles();
+class PersonDetails extends Component {
+	swapiService = new SwapiService();
+	state = {
+		person: null
+	};
 
-	return (
-		<Card className={classes.card}>
-			<CardActionArea>
-				<CardMedia
-					className={classes.media}
-					image="https://source.unsplash.com/random"
-					title="Contemplative Reptile"
-				/>
+	componentDidMount() {
+		this.updatePerson();
+	}
+
+	componentDidUpdate(prevProps) {
+		if (this.props.personId !== prevProps.personId) {
+			this.updatePerson();
+		}
+	}
+
+	updatePerson() {
+		const { personId } = this.props;
+		if (!personId) return;
+		this.swapiService.getPerson(personId).then((person) => {
+			this.setState({ person });
+		});
+	}
+
+	render() {
+		const { classes } = this.props;
+
+		if (!this.state.person) {
+			return <Card className={classes.card}>sdfsdf dsfs dsdfsdf</Card>;
+		}
+		const { id, name, gender, birthYear, eyeColor } = this.state.person;
+		const image = `https://starwars-visualguide.com/assets/img/characters/${id}.jpg`;
+		return (
+			<Card className={classes.card}>
+				<CardMedia className={classes.media} image={image} title={name} />
 				<CardContent>
-					<Typography gutterBottom variant="h5" component="h2">
-						Lizard
+					<Typography component="h2" variant="h5">
+						{name}
 					</Typography>
-					<Typography variant="body2" color="textSecondary" component="p">
-						Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all
-						continents except Antarctica
-					</Typography>
+					<Grid container direction="row" spacing={1}>
+						<Grid item xs={12} sm={4}>
+							<List direction="row">
+								<ListItem>
+									<ListItemText primary="Gender:" secondary={gender} />
+								</ListItem>
+							</List>
+						</Grid>
+
+						<Grid item xs={12} sm={4} align="right">
+							<List direction="row">
+								<ListItem>
+									<ListItemText primary="birthYear:" secondary={birthYear} />
+								</ListItem>
+							</List>
+						</Grid>
+						<Grid item xs={12} sm={4} align="right">
+							<List direction="row">
+								<ListItem>
+									<ListItemText primary="eyeColor:" secondary={eyeColor} />
+								</ListItem>
+							</List>
+						</Grid>
+					</Grid>
 				</CardContent>
-			</CardActionArea>
-			<CardActions>
-				<Button size="small" color="primary">
-					Share
-				</Button>
-				<Button size="small" color="primary">
-					Learn More
-				</Button>
-			</CardActions>
-		</Card>
-	);
+			</Card>
+		);
+	}
 }
+
+export default withStyles(styles)(PersonDetails);
