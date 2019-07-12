@@ -46,7 +46,7 @@ class PersonDetails extends Component {
 		const { classes } = this.props;
 
 		if (!this.state.person) {
-			return <Card className={classes.card}>sdfsdf dsfs dsdfsdf</Card>;
+			return <Card className={classes.card}>Please select person from the list</Card>;
 		}
 		const { id, name, gender, birthYear, eyeColor } = this.state.person;
 		const image = `https://starwars-visualguide.com/assets/img/characters/${id}.jpg`;
