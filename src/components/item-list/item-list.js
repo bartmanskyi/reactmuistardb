@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import SwapiService from '../../services/swapi-service';
+
 const styles = (theme) => ({
 	card: {
 		maxWidth: '100%'
@@ -20,21 +20,23 @@ const styles = (theme) => ({
 });
 
 class ItemList extends Component {
-	swapiService = new SwapiService();
 	state = {
-		peopleList: null
+		itemList: null
 	};
 	componentDidMount() {
-		this.swapiService.getAllPeople().then((peopleList) => {
-			this.setState({ peopleList });
+		const { getData } = this.props;
+		getData().then((itemList) => {
+			this.setState({ itemList });
 		});
 	}
 
 	renderItems(arr) {
-		return arr.map(({ id, name }) => {
+		return arr.map((item) => {
+			const { id } = item;
+			const { labelPrimary, labelSecondary } = this.props.renderItem(item);
 			return (
 				<ListItem button key={id} onClick={() => this.props.onItemSelected(id)}>
-					<ListItemText primary={name} />
+					<ListItemText primary={labelPrimary} secondary={labelSecondary} />
 				</ListItem>
 			);
 		});
@@ -42,11 +44,11 @@ class ItemList extends Component {
 
 	render() {
 		const { classes } = this.props;
-		const { peopleList } = this.state;
-		if (!peopleList) {
+		const { itemList } = this.state;
+		if (!itemList) {
 			return <CircularProgress />;
 		}
-		const items = this.renderItems(peopleList);
+		const items = this.renderItems(itemList);
 		return (
 			<Container component="main" className={classes.heroContent}>
 				<Card className={classes.card}>
