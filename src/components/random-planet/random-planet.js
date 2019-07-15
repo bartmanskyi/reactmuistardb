@@ -55,7 +55,7 @@ class RandomPlanet extends Component {
 	render() {
 		const { classes } = this.props;
 		const { planet: { id, name, population, rotationPeriod, diameter }, loading, error } = this.state;
-		const image = `https://starwars-visualguide.com/assets/img/planets/${id}.jpg`;
+		const image = this.swapiService.getPlanetImage({ id });
 		const imageBlock = loading ? (
 			<div>
 				<div className={classes.cardMedia} />

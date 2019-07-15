@@ -5,8 +5,8 @@ import Container from '@material-ui/core/Container';
 import Header from '../header';
 import RandomPlanet from '../random-planet';
 import PeoplePage from '../people-page';
-import PlanetsPage from '../planets-page';
-import StarshipsPage from '../starships-page';
+// import PlanetsPage from '../planets-page';
+// import StarshipsPage from '../starships-page';
 import ErrorIndicator from '../error-indicator';
 
 class App extends Component {
@@ -37,8 +37,8 @@ class App extends Component {
 				{renderRandomPlanet}
 				<Container component="main">
 					<PeoplePage />
-					<PlanetsPage />
-					<StarshipsPage />
+					{/* <PlanetsPage />
+					<StarshipsPage /> */}
 				</Container>
 			</div>
 		);

@@ -25,10 +25,25 @@ const styles = (theme) => ({
 	}
 });
 
+const Record = ({ item, field, label }) => {
+	return (
+		<Grid item xs={12} sm={4}>
+			<List direction="row">
+				<ListItem>
+					<ListItemText primary={label} secondary={item[field]} />
+				</ListItem>
+			</List>
+		</Grid>
+	);
+};
+
+export { Record };
+
 class ItemDetails extends Component {
 	swapiService = new SwapiService();
 	state = {
 		item: null,
+		image: null,
 		loading: true
 	};
 
@@ -42,14 +57,13 @@ class ItemDetails extends Component {
 			this.updateItem();
 		}
 	}
-	onItemLoaded = (item) => {
-		this.setState({ item, loading: false });
-	};
 
 	updateItem() {
-		const { itemId } = this.props;
+		const { itemId, getData, getImageUrl } = this.props;
 		if (!itemId) return;
-		this.swapiService.getPerson(itemId).then(this.onItemLoaded);
+		getData(itemId).then((item) => {
+			this.setState({ item, image: getImageUrl(item), loading: false });
+		});
 	}
 
 	render() {
@@ -61,8 +75,7 @@ class ItemDetails extends Component {
 				</Container>
 			);
 		}
-		const { item: { id, name, gender, birthYear, eyeColor }, loading } = this.state;
-		const image = `https://starwars-visualguide.com/assets/img/characters/${id}.jpg`;
+		const { item: { name, gender, birthYear, eyeColor }, image, loading } = this.state;
 		const imageBlock = loading ? (
 			<div>
 				<div className={classes.media} />
@@ -87,7 +100,6 @@ class ItemDetails extends Component {
 									</ListItem>
 								</List>
 							</Grid>
-
 							<Grid item xs={12} sm={4} align="right">
 								<List direction="row">
 									<ListItem>

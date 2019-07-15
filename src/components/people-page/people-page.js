@@ -29,7 +29,11 @@ export default class PeoplePage extends Component {
 				</Grid>
 				<Grid item md={6} sm={12} xs={12}>
 					<ErrorBoundry>
-						<ItemDetails itemId={this.state.selectedItem} />
+						<ItemDetails
+							itemId={this.state.selectedItem}
+							getData={this.swapiService.getPerson}
+							getImageUrl={this.swapiService.getPersonImage}
+						/>
 					</ErrorBoundry>
 				</Grid>
 			</Grid>
