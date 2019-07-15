@@ -10,7 +10,7 @@ export default class PeoplePage extends Component {
 	state = {
 		selectedItem: 3
 	};
-	onPersonSelected = (id) => {
+	onItemSelected = (id) => {
 		this.setState({ selectedItem: id });
 	};
 	render() {
@@ -19,7 +19,7 @@ export default class PeoplePage extends Component {
 				<Grid item md={6} sm={12} xs={12}>
 					<ErrorBoundry>
 						<ItemList
-							onItemSelected={this.onPersonSelected}
+							onItemSelected={this.onItemSelected}
 							getData={this.swapiService.getAllPeople}
 							renderItem={({ name, birthYear }) => {
 								return { labelPrimary: name, labelSecondary: `${birthYear}` };
@@ -29,7 +29,7 @@ export default class PeoplePage extends Component {
 				</Grid>
 				<Grid item md={6} sm={12} xs={12}>
 					<ErrorBoundry>
-						<ItemDetails personId={this.state.selectedItem} />
+						<ItemDetails itemId={this.state.selectedItem} />
 					</ErrorBoundry>
 				</Grid>
 			</Grid>

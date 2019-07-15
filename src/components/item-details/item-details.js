@@ -28,40 +28,40 @@ const styles = (theme) => ({
 class ItemDetails extends Component {
 	swapiService = new SwapiService();
 	state = {
-		person: null,
+		item: null,
 		loading: true
 	};
 
 	componentDidMount() {
-		this.updatePerson();
+		this.updateItem();
 	}
 
 	componentDidUpdate(prevProps) {
-		if (this.props.personId !== prevProps.personId) {
+		if (this.props.itemId !== prevProps.itemId) {
 			this.setState({ loading: true });
-			this.updatePerson();
+			this.updateItem();
 		}
 	}
-	onPersonLoaded = (person) => {
-		this.setState({ person, loading: false });
+	onItemLoaded = (item) => {
+		this.setState({ item, loading: false });
 	};
 
-	updatePerson() {
-		const { personId } = this.props;
-		if (!personId) return;
-		this.swapiService.getPerson(personId).then(this.onPersonLoaded);
+	updateItem() {
+		const { itemId } = this.props;
+		if (!itemId) return;
+		this.swapiService.getPerson(itemId).then(this.onItemLoaded);
 	}
 
 	render() {
 		const { classes } = this.props;
-		if (!this.state.person) {
+		if (!this.state.item) {
 			return (
 				<Container component="main" className={classes.heroContent}>
-					<Card className={classes.card}>Please select person from the list</Card>
+					<Card className={classes.card}>Please select item from the list</Card>
 				</Container>
 			);
 		}
-		const { person: { id, name, gender, birthYear, eyeColor }, loading } = this.state;
+		const { item: { id, name, gender, birthYear, eyeColor }, loading } = this.state;
 		const image = `https://starwars-visualguide.com/assets/img/characters/${id}.jpg`;
 		const imageBlock = loading ? (
 			<div>
