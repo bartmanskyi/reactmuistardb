@@ -10,6 +10,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import CircularProgress from '@material-ui/core/CircularProgress';
 const styles = (theme) => ({
 	card: {
 		maxWidth: '100%'
@@ -27,7 +28,8 @@ const styles = (theme) => ({
 class ItemDetails extends Component {
 	swapiService = new SwapiService();
 	state = {
-		person: null
+		person: null,
+		loading: true
 	};
 
 	componentDidMount() {
@@ -36,16 +38,18 @@ class ItemDetails extends Component {
 
 	componentDidUpdate(prevProps) {
 		if (this.props.personId !== prevProps.personId) {
+			this.setState({ loading: true });
 			this.updatePerson();
 		}
 	}
+	onPersonLoaded = (person) => {
+		this.setState({ person, loading: false });
+	};
 
 	updatePerson() {
 		const { personId } = this.props;
 		if (!personId) return;
-		this.swapiService.getPerson(personId).then((person) => {
-			this.setState({ person });
-		});
+		this.swapiService.getPerson(personId).then(this.onPersonLoaded);
 	}
 
 	render() {
@@ -57,12 +61,20 @@ class ItemDetails extends Component {
 				</Container>
 			);
 		}
-		const { id, name, gender, birthYear, eyeColor } = this.state.person;
+		const { person: { id, name, gender, birthYear, eyeColor }, loading } = this.state;
 		const image = `https://starwars-visualguide.com/assets/img/characters/${id}.jpg`;
+		const imageBlock = loading ? (
+			<div>
+				<div className={classes.media} />
+				<CircularProgress />
+			</div>
+		) : (
+			<CardMedia className={classes.media} image={image} title={name} />
+		);
 		return (
 			<Container component="main" className={classes.heroContent}>
 				<Card className={classes.card}>
-					<CardMedia className={classes.media} image={image} title={name} />
+					{imageBlock}
 					<CardContent>
 						<Typography component="h2" variant="h5">
 							{name}
