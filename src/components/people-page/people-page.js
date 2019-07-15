@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import ItemList from '../item-list';
-import PersonDetails from '../person-details';
+import ItemDetails from '../item-details';
 import ErrorIndicator from '../error-indicator';
 import SwapiService from '../../services/swapi-service';
 export default class PeoplePage extends Component {
 	swapiService = new SwapiService();
 
 	state = {
-		selectedPerson: 3,
+		selectedItem: 3,
 		hasError: false
 	};
 	onPersonSelected = (id) => {
-		this.setState({ selectedPerson: id });
+		this.setState({ selectedItem: id });
 	};
 	componentDidCatch() {
 		this.setState({ hasError: true });
@@ -27,13 +27,13 @@ export default class PeoplePage extends Component {
 					<ItemList
 						onItemSelected={this.onPersonSelected}
 						getData={this.swapiService.getAllPeople}
-						renderItem={({ name, gender, birthYear }) => {
-							return { labelPrimary: name, labelSecondary: `${gender}, ${birthYear}` };
+						renderItem={({ name, birthYear }) => {
+							return { labelPrimary: name, labelSecondary: `${birthYear}` };
 						}}
 					/>
 				</Grid>
 				<Grid item md={6} sm={12} xs={12}>
-					<PersonDetails personId={this.state.selectedPerson} />
+					<ItemDetails personId={this.state.selectedItem} />
 				</Grid>
 			</Grid>
 		);

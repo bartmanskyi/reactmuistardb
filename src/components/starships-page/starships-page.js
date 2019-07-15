@@ -27,8 +27,8 @@ export default class PeoplePage extends Component {
 					<ItemList
 						onItemSelected={this.onItemSelected}
 						getData={this.swapiService.getAllStarships}
-						renderItem={({ name, model, manufacturer }) => {
-							return { labelPrimary: name, labelSecondary: `${model}, ${manufacturer}` };
+						renderItem={({ name, model }) => {
+							return { labelPrimary: name, labelSecondary: `${model}` };
 						}}
 					/>
 				</Grid>

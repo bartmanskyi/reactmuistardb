@@ -24,7 +24,7 @@ const styles = (theme) => ({
 	}
 });
 
-class PersonDetails extends Component {
+class ItemDetails extends Component {
 	swapiService = new SwapiService();
 	state = {
 		person: null
@@ -98,4 +98,4 @@ class PersonDetails extends Component {
 	}
 }
 
-export default withStyles(styles)(PersonDetails);
+export default withStyles(styles)(ItemDetails);

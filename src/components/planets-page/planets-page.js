@@ -8,11 +8,11 @@ export default class PeoplePage extends Component {
 	swapiService = new SwapiService();
 
 	state = {
-		selectedPlanet: 3,
+		selectedItem: 3,
 		hasError: false
 	};
 	onPlanetSelected = (id) => {
-		this.setState({ selectedPlanet: id });
+		this.setState({ selectedItem: id });
 	};
 	componentDidCatch() {
 		this.setState({ hasError: true });
@@ -27,8 +27,8 @@ export default class PeoplePage extends Component {
 					<ItemList
 						onItemSelected={this.onPlanetSelected}
 						getData={this.swapiService.getAllPlanets}
-						renderItem={({ name, population, diameter }) => {
-							return { labelPrimary: name, labelSecondary: `${population}, ${diameter}` };
+						renderItem={({ name, population }) => {
+							return { labelPrimary: name, labelSecondary: `${population}` };
 						}}
 					/>
 				</Grid>
