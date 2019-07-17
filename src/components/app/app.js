@@ -5,9 +5,11 @@ import Container from '@material-ui/core/Container';
 import Header from '../header';
 import RandomPlanet from '../random-planet';
 import PeoplePage from '../people-page';
-// import PlanetsPage from '../planets-page';
-// import StarshipsPage from '../starships-page';
+import PlanetsPage from '../planets-page';
+import StarshipsPage from '../starships-page';
 import ErrorIndicator from '../error-indicator';
+
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 class App extends Component {
 	state = {
@@ -33,13 +35,18 @@ class App extends Component {
 		const renderRandomPlanet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
 		return (
 			<div>
-				<Header onToggleRandomPlanet={this.toggleRandomPlanet} showRandomPlanet={this.state.showRandomPlanet} />
-				{renderRandomPlanet}
-				<Container component="main">
-					<PeoplePage />
-					{/* <PlanetsPage />
-					<StarshipsPage /> */}
-				</Container>
+				<Router>
+					<Header
+						onToggleRandomPlanet={this.toggleRandomPlanet}
+						showRandomPlanet={this.state.showRandomPlanet}
+					/>
+					{renderRandomPlanet}
+					<Container component="main">
+						<Route path="/people" component={PeoplePage} />
+						<Route path="/planets" component={PlanetsPage} />
+						<Route path="/starships" component={StarshipsPage} />
+					</Container>
+				</Router>
 			</div>
 		);
 	}
