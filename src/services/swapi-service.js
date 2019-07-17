@@ -1,4 +1,4 @@
-class SwapiService {
+export default class SwapiService {
 	_apiBase = 'https://swapi.co/api';
 	_imageBase = 'https://starwars-visualguide.com/assets/img/';
 	getResource = async (url) => {
@@ -77,4 +77,3 @@ class SwapiService {
 		return `${this._imageBase}planets/${id}.jpg`;
 	};
 }
-export default SwapiService;

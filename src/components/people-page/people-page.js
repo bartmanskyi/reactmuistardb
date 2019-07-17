@@ -3,11 +3,9 @@ import Grid from '@material-ui/core/Grid';
 import ItemList from '../item-list';
 import ItemDetails from '../item-details';
 import Record from '../item-record';
-import SwapiService from '../../services/swapi-service';
+import { SwapiServiceConsumer } from '../swapi-service-context';
 import ErrorBoundry from '../error-boundry';
-
 export default class PeoplePage extends Component {
-	swapiService = new SwapiService();
 	state = {
 		selectedItem: 3
 	};
@@ -16,33 +14,39 @@ export default class PeoplePage extends Component {
 	};
 	render() {
 		return (
-			<Grid container spacing={4}>
-				<Grid item md={6} sm={12} xs={12}>
-					<ErrorBoundry>
-						<ItemList
-							onItemSelected={this.onItemSelected}
-							getData={this.swapiService.getAllPeople}
-							renderItem={({ name, birthYear }) => {
-								return { labelPrimary: name, labelSecondary: `${birthYear}` };
-							}}
-						/>
-					</ErrorBoundry>
-				</Grid>
+			<SwapiServiceConsumer>
+				{({ getPerson, getPersonImage, getAllPeople }) => {
+					return (
+						<Grid container spacing={4}>
+							<Grid item md={6} sm={12} xs={12}>
+								<ErrorBoundry>
+									<ItemList
+										onItemSelected={this.onItemSelected}
+										getData={getAllPeople}
+										renderItem={({ name, birthYear }) => {
+											return { labelPrimary: name, labelSecondary: `${birthYear}` };
+										}}
+									/>
+								</ErrorBoundry>
+							</Grid>
 
-				<Grid item md={6} sm={12} xs={12}>
-					<ErrorBoundry>
-						<ItemDetails
-							itemId={this.state.selectedItem}
-							getData={this.swapiService.getPerson}
-							getImageUrl={this.swapiService.getPersonImage}
-						>
-							<Record field="gender" label="Gender" />
-							<Record field="birthYear" label="Birth year" />
-							<Record field="eyeColor" label="Eye color" />
-						</ItemDetails>
-					</ErrorBoundry>
-				</Grid>
-			</Grid>
+							<Grid item md={6} sm={12} xs={12}>
+								<ErrorBoundry>
+									<ItemDetails
+										itemId={this.state.selectedItem}
+										getData={getPerson}
+										getImageUrl={getPersonImage}
+									>
+										<Record field="gender" label="Gender" />
+										<Record field="birthYear" label="Birth year" />
+										<Record field="eyeColor" label="Eye color" />
+									</ItemDetails>
+								</ErrorBoundry>
+							</Grid>
+						</Grid>
+					);
+				}}
+			</SwapiServiceConsumer>
 		);
 	}
 }

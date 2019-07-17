@@ -9,7 +9,7 @@ import ErrorBoundry from '../error-boundry';
 export default class PlanetsPage extends Component {
 	swapiService = new SwapiService();
 	state = {
-		selectedItem: 21
+		selectedItem: null
 	};
 	onItemSelected = (id) => {
 		this.setState({ selectedItem: id });
