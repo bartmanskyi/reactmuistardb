@@ -10,6 +10,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Divider from '@material-ui/core/Divider';
 import Hidden from '@material-ui/core/Hidden';
+import { Link as LinkRouter } from 'react-router-dom';
 const styles = (theme) => ({
 	appBar: {
 		borderBottom: `1px solid ${theme.palette.divider}`
@@ -18,7 +19,8 @@ const styles = (theme) => ({
 		flexWrap: 'wrap'
 	},
 	toolbarTitle: {
-		flexGrow: 1
+		flexGrow: 1,
+		textDecoration: 'none'
 	},
 	link: {
 		margin: theme.spacing(1, 1.5)
@@ -39,18 +41,43 @@ class Header extends Component {
 				<AppBar position="static" color="default" elevation={0} className={classes.appBar}>
 					<Toolbar className={classes.toolbar}>
 						<Hidden xsDown>
-							<Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
+							<Typography
+								variant="h6"
+								color="inherit"
+								noWrap
+								className={classes.toolbarTitle}
+								component={LinkRouter}
+								to="/"
+							>
 								Star DB
 							</Typography>
 						</Hidden>
 						<nav>
-							<Link variant="button" color="textPrimary" href="#" className={classes.link}>
+							<Link
+								variant="button"
+								color="textPrimary"
+								className={classes.link}
+								component={LinkRouter}
+								to="/people"
+							>
 								People
 							</Link>
-							<Link variant="button" color="textPrimary" href="#" className={classes.link}>
+							<Link
+								variant="button"
+								color="textPrimary"
+								className={classes.link}
+								component={LinkRouter}
+								to="/planets"
+							>
 								Planets
 							</Link>
-							<Link variant="button" color="textPrimary" href="#" className={classes.link}>
+							<Link
+								variant="button"
+								color="textPrimary"
+								className={classes.link}
+								component={LinkRouter}
+								to="/starships"
+							>
 								Starships
 							</Link>
 						</nav>

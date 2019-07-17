@@ -8,12 +8,12 @@ import PeoplePage from '../people-page';
 import PlanetsPage from '../planets-page';
 import StarshipsPage from '../starships-page';
 import ErrorIndicator from '../error-indicator';
-
+import WelcomeContent from '../welcome-content';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 class App extends Component {
 	state = {
-		showRandomPlanet: true,
+		showRandomPlanet: false,
 		hasError: false
 	};
 	toggleRandomPlanet = () => {
@@ -42,6 +42,7 @@ class App extends Component {
 					/>
 					{renderRandomPlanet}
 					<Container component="main">
+						<Route path="/" exact component={WelcomeContent} />
 						<Route path="/people" component={PeoplePage} />
 						<Route path="/planets" component={PlanetsPage} />
 						<Route path="/starships" component={StarshipsPage} />
