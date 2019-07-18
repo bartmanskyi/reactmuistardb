@@ -5,9 +5,10 @@ import Container from '@material-ui/core/Container';
 import Header from '../header';
 import RandomPlanet from '../random-planet';
 import PeoplePage from '../people-page';
+import PeopleIdPage from '../peopleid-page';
 import PlanetsPage from '../planets-page';
+import PlanetsIdPage from '../planetsid-page';
 import StarshipsPage from '../starships-page';
-import ItemDetails from '../item-details';
 import ErrorIndicator from '../error-indicator';
 import WelcomeContent from '../welcome-content';
 import Typography from '@material-ui/core/Typography';
@@ -72,16 +73,35 @@ class App extends Component {
 									</div>
 								)}
 							/>
-							<Route path="/people" component={PeoplePage} />
-							<Route path="/planets" component={PlanetsPage} />
+							<Route path="/people" exact component={PeoplePage} />
+							<Route
+								path="/people/:id"
+								render={({ match }) => {
+									const { id } = match.params;
+									return <PeopleIdPage itemId={id} />;
+								}}
+							/>
+							<Route
+								path="/planets"
+								exact
+								render={() => (
+									<div>
+										<Typography variant="h6" gutterBottom style={{ paddingTop: '32px' }}>
+											Planets
+										</Typography>
+										<Divider />
+									</div>
+								)}
+							/>
+							<Route path="/planets" exact component={PlanetsPage} />
+							<Route
+								path="/planets/:id"
+								render={({ match }) => {
+									const { id } = match.params;
+									return <PlanetsIdPage itemId={id} />;
+								}}
+							/>
 							<Route path="/starships" exact component={StarshipsPage} />
-							{/* <Route
-							path="/starships/:id"
-							render={({ match }) => {
-								const { id } = match.params;
-								return <ItemDetails itemId={id} />;
-							}}
-						/> */}
 						</Container>
 					</Router>
 				</SwapiServiceProvider>
