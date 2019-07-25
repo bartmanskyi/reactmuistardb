@@ -5,19 +5,16 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
 const styles = (theme) => ({
 	card: {
 		maxWidth: '100%'
 	},
 	media: {
-		height: 380
+		minHeight: 400
 	},
-	heroContent: {
-		paddingTop: theme.spacing(4),
-		paddingLeft: 0,
-		paddingRight: 0
+	p: {
+		textAlign: 'center'
 	}
 });
 
@@ -51,9 +48,13 @@ class ItemDetails extends Component {
 		const { classes } = this.props;
 		if (!this.state.item) {
 			return (
-				<Container component="main" className={classes.heroContent}>
-					<Card className={classes.card}>Please select item from the list</Card>
-				</Container>
+				<Grid container spacing={4}>
+					<Grid item xs={12}>
+						<Card className={classes.card}>
+							<p className={classes.p}>Please select item from the list</p>
+						</Card>
+					</Grid>
+				</Grid>
 			);
 		}
 		//const { item: { name, gender, birthYear, eyeColor }, image, loading } = this.state;
@@ -67,21 +68,23 @@ class ItemDetails extends Component {
 			<CardMedia className={classes.media} image={image} title={item.name} />
 		);
 		return (
-			<Container component="main" className={classes.heroContent}>
-				<Card className={classes.card}>
-					{imageBlock}
-					<CardContent>
-						<Typography component="h2" variant="h5">
-							{item.name}
-						</Typography>
-						<Grid container direction="row" spacing={1}>
-							{Children.map(this.props.children, (child) => {
-								return cloneElement(child, { item });
-							})}
-						</Grid>
-					</CardContent>
-				</Card>
-			</Container>
+			<Grid container spacing={4}>
+				<Grid item xs={12}>
+					<Card className={classes.card}>
+						{imageBlock}
+						<CardContent>
+							<Typography component="h2" variant="h5">
+								{item.name}
+							</Typography>
+							<Grid container direction="row" spacing={1}>
+								{Children.map(this.props.children, (child) => {
+									return cloneElement(child, { item });
+								})}
+							</Grid>
+						</CardContent>
+					</Card>
+				</Grid>
+			</Grid>
 		);
 	}
 }

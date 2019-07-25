@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Card from '@material-ui/core/Card';
@@ -50,13 +50,15 @@ class ItemList extends Component {
 		}
 		const items = this.renderItems(itemList);
 		return (
-			<Container component="main" className={classes.heroContent}>
-				<Card className={classes.card}>
-					<CardContent>
-						<List>{items}</List>
-					</CardContent>
-				</Card>
-			</Container>
+			<Grid container spacing={4}>
+				<Grid item xs={12}>
+					<Card className={classes.card}>
+						<CardContent>
+							<List>{items}</List>
+						</CardContent>
+					</Card>
+				</Grid>
+			</Grid>
 		);
 	}
 }

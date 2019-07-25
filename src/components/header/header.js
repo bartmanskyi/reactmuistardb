@@ -26,7 +26,7 @@ const styles = (theme) => ({
 		}
 	},
 	toolbarLink: {
-		color: 'default',
+		color: 'rgba(0, 0, 0, 0.87)',
 		textDecoration: 'none',
 		'&:hover': {
 			textDecoration: 'none'

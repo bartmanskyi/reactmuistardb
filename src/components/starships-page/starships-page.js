@@ -6,12 +6,19 @@ import ItemDetails from '../item-details';
 import Record from '../item-record';
 import SwapiService from '../../services/swapi-service';
 import ErrorBoundry from '../error-boundry';
-
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 const PlanetsPage = ({ history, match }) => {
 	const swapiService = new SwapiService();
 	const { id } = match.params;
 	return (
 		<Grid container spacing={4}>
+			<Grid item xs={12}>
+				<Typography variant="h6" gutterBottom style={{ paddingTop: '32px' }}>
+					Starships
+				</Typography>
+				<Divider />
+			</Grid>
 			<Grid item md={6} sm={12} xs={12}>
 				<ErrorBoundry>
 					<ItemList

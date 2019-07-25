@@ -11,9 +11,7 @@ import PlanetsIdPage from '../planetsid-page';
 import StarshipsPage from '../starships-page';
 import ErrorIndicator from '../error-indicator';
 import WelcomeContent from '../welcome-content';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import SwapiService from '../../services/swapi-service';
 import DummySwapiService from '../../services/dummy-swapi-service';
 import { SwapiServiceProvider } from '../swapi-service-context';
@@ -60,59 +58,27 @@ class App extends Component {
 						/>
 						{renderRandomPlanet}
 						<Container component="main">
-							<Route path="/" exact component={WelcomeContent} />
-							<Route
-								path="/people"
-								exact
-								render={() => (
-									<div>
-										<Typography variant="h6" gutterBottom style={{ paddingTop: '32px' }}>
-											People
-										</Typography>
-										<Divider />
-									</div>
-								)}
-							/>
-							<Route path="/people" exact component={PeoplePage} />
-							<Route
-								path="/people/:id"
-								render={({ match }) => {
-									const { id } = match.params;
-									return <PeopleIdPage itemId={id} />;
-								}}
-							/>
-							<Route
-								path="/planets"
-								exact
-								render={() => (
-									<div>
-										<Typography variant="h6" gutterBottom style={{ paddingTop: '32px' }}>
-											Planets
-										</Typography>
-										<Divider />
-									</div>
-								)}
-							/>
-							<Route path="/planets" exact component={PlanetsPage} />
-							<Route
-								path="/planets/:id"
-								render={({ match }) => {
-									const { id } = match.params;
-									return <PlanetsIdPage itemId={id} />;
-								}}
-							/>
-							<Route
-								path="/starships"
-								render={() => (
-									<div>
-										<Typography variant="h6" gutterBottom style={{ paddingTop: '32px' }}>
-											Starships
-										</Typography>
-										<Divider />
-									</div>
-								)}
-							/>
-							<Route path="/starships/:id?" component={StarshipsPage} />
+							<Switch>
+								<Route path="/" exact component={WelcomeContent} />
+								<Route path="/people" exact component={PeoplePage} />
+								<Route
+									path="/people/:id"
+									render={({ match }) => {
+										const { id } = match.params;
+										return <PeopleIdPage itemId={id} />;
+									}}
+								/>
+								<Route path="/planets" exact component={PlanetsPage} />
+								<Route
+									path="/planets/:id"
+									render={({ match }) => {
+										const { id } = match.params;
+										return <PlanetsIdPage itemId={id} />;
+									}}
+								/>
+								<Route path="/starships/:id?" component={StarshipsPage} />
+								<Route render={() => <h3>Page not found</h3>} />
+							</Switch>
 						</Container>
 					</Router>
 				</SwapiServiceProvider>
