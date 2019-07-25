@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import withRoot from './withRoot';
 import Container from '@material-ui/core/Container';
 import Header from '../header';
+import Footer from '../footer';
 import RandomPlanet from '../random-planet';
 import PeoplePage from '../people-page';
 import PeopleIdPage from '../peopleid-page';
@@ -49,7 +50,13 @@ class App extends Component {
 		}
 		const renderRandomPlanet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
 		return (
-			<div>
+			<div
+				style={{
+					display: 'flex',
+					flexDirection: 'column',
+					minHeight: '100vh'
+				}}
+			>
 				<SwapiServiceProvider value={this.state.swapiService}>
 					<Router>
 						<Header
@@ -57,7 +64,7 @@ class App extends Component {
 							showRandomPlanet={this.state.showRandomPlanet}
 						/>
 						{renderRandomPlanet}
-						<Container component="main">
+						<Container component="main" style={{ marginBottom: '100px' }}>
 							<Switch>
 								<Route path="/" exact component={WelcomeContent} />
 								<Route path="/people" exact component={PeoplePage} />
@@ -80,6 +87,7 @@ class App extends Component {
 								<Route render={() => <h3>Page not found</h3>} />
 							</Switch>
 						</Container>
+						<Footer />
 					</Router>
 				</SwapiServiceProvider>
 			</div>
