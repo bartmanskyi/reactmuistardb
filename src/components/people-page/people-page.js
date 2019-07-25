@@ -7,8 +7,7 @@ import { withRouter } from 'react-router-dom';
 class PeoplePage extends Component {
 	onItemSelected = (id) => {
 		const { history } = this.props;
-		const newPath = `/people/${id}`;
-		history.push(newPath);
+		history.push(id);
 	};
 	render() {
 		return (

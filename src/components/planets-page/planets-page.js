@@ -7,8 +7,7 @@ import { withRouter } from 'react-router-dom';
 class PlanetsPage extends Component {
 	onItemSelected = (id) => {
 		const { history } = this.props;
-		const newPath = `/planets/${id}`;
-		history.push(newPath);
+		history.push(id);
 	};
 	render() {
 		return (

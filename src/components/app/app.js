@@ -101,7 +101,18 @@ class App extends Component {
 									return <PlanetsIdPage itemId={id} />;
 								}}
 							/>
-							<Route path="/starships" exact component={StarshipsPage} />
+							<Route
+								path="/starships"
+								render={() => (
+									<div>
+										<Typography variant="h6" gutterBottom style={{ paddingTop: '32px' }}>
+											Starships
+										</Typography>
+										<Divider />
+									</div>
+								)}
+							/>
+							<Route path="/starships/:id?" component={StarshipsPage} />
 						</Container>
 					</Router>
 				</SwapiServiceProvider>

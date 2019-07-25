@@ -20,7 +20,17 @@ const styles = (theme) => ({
 	},
 	toolbarTitle: {
 		flexGrow: 1,
-		textDecoration: 'none'
+		textDecoration: 'none',
+		'&:hover': {
+			textDecoration: 'none'
+		}
+	},
+	toolbarLink: {
+		color: 'default',
+		textDecoration: 'none',
+		'&:hover': {
+			textDecoration: 'none'
+		}
 	},
 	link: {
 		margin: theme.spacing(1, 1.5)
@@ -41,15 +51,10 @@ class Header extends Component {
 				<AppBar position="static" color="default" elevation={0} className={classes.appBar}>
 					<Toolbar className={classes.toolbar}>
 						<Hidden xsDown>
-							<Typography
-								variant="h6"
-								color="inherit"
-								noWrap
-								className={classes.toolbarTitle}
-								component={LinkRouter}
-								to="/"
-							>
-								Star DB
+							<Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
+								<Link component={LinkRouter} to="/" className={classes.toolbarLink}>
+									Star DB
+								</Link>
 							</Typography>
 						</Hidden>
 						<nav>
@@ -58,7 +63,7 @@ class Header extends Component {
 								color="textPrimary"
 								className={classes.link}
 								component={LinkRouter}
-								to="/people"
+								to="/people/"
 							>
 								People
 							</Link>
@@ -67,7 +72,7 @@ class Header extends Component {
 								color="textPrimary"
 								className={classes.link}
 								component={LinkRouter}
-								to="/planets"
+								to="/planets/"
 							>
 								Planets
 							</Link>
@@ -76,7 +81,7 @@ class Header extends Component {
 								color="textPrimary"
 								className={classes.link}
 								component={LinkRouter}
-								to="/starships"
+								to="/starships/"
 							>
 								Starships
 							</Link>
