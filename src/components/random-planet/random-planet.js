@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -29,6 +30,13 @@ const styles = (theme) => ({
 });
 
 class RandomPlanet extends Component {
+	static defaultProps = {
+		updateInterval: 10000
+	};
+	static propTypes = {
+		updateInterval: PropTypes.number
+	};
+
 	swapiService = new SwapiService();
 	state = {
 		planet: {},
@@ -36,8 +44,9 @@ class RandomPlanet extends Component {
 		error: false
 	};
 	componentDidMount() {
+		const { updateInterval } = this.props;
 		this.updatePlanet();
-		this.interval = setInterval(this.updatePlanet, 7000);
+		this.interval = setInterval(this.updatePlanet, updateInterval);
 	}
 	componentWillUnmount() {
 		clearInterval(this.interval);
